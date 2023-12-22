@@ -23,6 +23,18 @@ def download_dict():
         "whisper-ppg-large": {
             "url": "https://openaipublic.azureedge.net/main/whisper/models/81f7c96c852ee8fc832187b0132e569d6c3065a3252ed18e56effd0b6a73e524/large-v2.pt",
             "output": "./pretrain/large-v2.pt"
+        },
+        "cnhubertlarge": {
+            "url": "https://huggingface.co/TencentGameMate/chinese-hubert-large/resolve/main/chinese-hubert-large-fairseq-ckpt.pt",
+            "output": "./pretrain/chinese-hubert-large-fairseq-ckpt.pt"
+        },
+        "mrhubert": {
+            "url": "",
+            "output": ""
+        },
+        "wavlablm": {
+            "url": "",
+            "output": ""
         }
     }
 

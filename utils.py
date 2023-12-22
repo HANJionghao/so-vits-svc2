@@ -148,8 +148,14 @@ def get_speech_encoder(speech_encoder,device=None,**kargs):
     elif speech_encoder == "wavlmbase+":
         from vencoder.WavLMBasePlus import WavLMBasePlus
         speech_encoder_object = WavLMBasePlus(device = device)
+    elif speech_encoder == "mrhubert":
+        from vencoder.MRHubert import MRHubert
+        speech_encoder_object = MRHubert(device = device)
+    elif speech_encoder == "wavlablm":
+        from vencoder.WavLabLM import WavLabLM
+        speech_encoder_object = WavLabLM(device = device)
     else:
-        raise Exception("Unknown speech encoder")
+        raise Exception(f"Unknown speech encoder {speech_encoder}")
     return speech_encoder_object 
 
 def load_checkpoint(checkpoint_path, model, optimizer=None, skip_optimizer=False):

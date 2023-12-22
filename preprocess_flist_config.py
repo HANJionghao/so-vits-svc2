@@ -30,7 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("--train_list", type=str, default="./filelists/train.txt", help="path to train list")
     parser.add_argument("--val_list", type=str, default="./filelists/val.txt", help="path to val list")
     parser.add_argument("--source_dir", type=str, default="./dataset/44k", help="path to source dir")
-    parser.add_argument("--speech_encoder", type=str, default="vec768l12", help="choice a speech encoder|'vec768l12','vec256l9','hubertsoft','whisper-ppg','cnhubertlarge','dphubert','whisper-ppg-large','wavlmbase+'")
+    parser.add_argument("--speech_encoder", type=str, default="vec768l12", help="choice a speech encoder|'vec768l12','vec256l9','hubertsoft','whisper-ppg','cnhubertlarge','dphubert','whisper-ppg-large','wavlmbase+', 'mrhubert', 'wavlablm'")
     parser.add_argument("--vol_aug", action="store_true", help="Whether to use volume embedding and volume augmentation")
     parser.add_argument("--tiny", action="store_true", help="Whether to train sovits tiny")
     args = parser.parse_args()
@@ -88,18 +88,22 @@ if __name__ == "__main__":
     d_config_template["model"]["n_spk"] = spk_id
     d_config_template["data"]["encoder"] = args.speech_encoder
     d_config_template["spk"] = spk_dict
+    d_config_template["data"]["training_files"] = args.train_list # [sovits BUG]
+    d_config_template["data"]["validation_files"] = args.val_list # [sovits BUG]
     
     config_template["spk"] = spk_dict
     config_template["model"]["n_speakers"] = spk_id
     config_template["model"]["speech_encoder"] = args.speech_encoder
+    config_template["data"]["training_files"] = args.train_list # [sovits BUG]
+    config_template["data"]["validation_files"] = args.val_list # [sovits BUG]
     
-    if args.speech_encoder == "vec768l12" or args.speech_encoder == "dphubert" or args.speech_encoder == "wavlmbase+":
+    if args.speech_encoder == "vec768l12" or args.speech_encoder == "dphubert" or args.speech_encoder == "wavlmbase+" or args.speech_encoder == "mrhubert":
         config_template["model"]["ssl_dim"] = config_template["model"]["filter_channels"] = config_template["model"]["gin_channels"] = 768
         d_config_template["data"]["encoder_out_channels"] = 768
     elif args.speech_encoder == "vec256l9" or args.speech_encoder == 'hubertsoft':
         config_template["model"]["ssl_dim"] = config_template["model"]["gin_channels"] = 256
         d_config_template["data"]["encoder_out_channels"] = 256
-    elif args.speech_encoder == "whisper-ppg" or args.speech_encoder == 'cnhubertlarge':
+    elif args.speech_encoder == "whisper-ppg" or args.speech_encoder == 'cnhubertlarge' or args.speech_encoder == "wavlablm":
         config_template["model"]["ssl_dim"] = config_template["model"]["filter_channels"] = config_template["model"]["gin_channels"] = 1024
         d_config_template["data"]["encoder_out_channels"] = 1024
     elif args.speech_encoder == "whisper-ppg-large":
