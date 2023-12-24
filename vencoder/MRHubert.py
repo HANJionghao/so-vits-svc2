@@ -21,4 +21,4 @@ class MRHubert(SpeechEncoder):
             wavs = wav.view(1, -1)
             wavs_len = torch.LongTensor([wav.shape[0]])
             hs, _ = self.model(wavs.to(wav.device), wavs_len.to(wav.device))
-            return hs[0].transpose(1, 2).to(self.dev)
+            return hs[-1].transpose(1, 2).to(self.dev)
