@@ -1,3 +1,37 @@
+# sovits4.1 Fork Repository
+
+This repository is a fork of the [sovits4.1 project](https://github.com/svc-develop-team/so-vits-svc.git). This fork incorporates additional features and addresses minor bugs for enhanced functionality. Below are the changes introduced in this fork:
+
+## New Features
+
+### **Additional Encoder Options:**
+   - **Multi-resolution HuBERT (mrhubert):** 
+     - Paper: [Multi-resolution HuBERT: Multi-resolution Speech Self-Supervised Learning with Masked Unit Prediction](https://arxiv.org/abs/2310.02720)
+     - Implementation: Utilizes `multires_hubert_base` from [S3PRL](https://github.com/s3prl/s3prl)
+     - Usage: `python preprocess_flist_config.py --speech_encoder mrhubert`
+   - **WavLabLM (wavlablm):**
+     - Paper: [Joint Prediction and Denoising for Large-scale Multilingual Self-supervised Learning](https://arxiv.org/abs/2309.15317)
+     - Implementation: Utilizes `wavlablm_ms_40k` from [S3PRL](https://github.com/s3prl/s3prl)
+     - Usage: `python preprocess_flist_config.py --speech_encoder wavlablm`
+
+
+## Bug Fixes
+
+### **Preprocess Script Fixes:**
+   - Resolved minor bugs in `preprocess_flist_config.py`:
+     - Fixed issues with updating `train_list` and `val_list` in the configuration files.
+
+## Original Project Source
+
+For reference, the original sovits4.1 project can be found [here](https://github.com/svc-develop-team/so-vits-svc.git). 
+
+If you encounter any issues or have suggestions for further improvements, feel free to open an issue or create a pull request.
+
+Happy coding!
+
+---
+
+
 <div align="center">
 <img alt="LOGO" src="https://avatars.githubusercontent.com/u/127122328?s=400&u=5395a98a4f945a3a50cb0cc96c2747505d190dbc&v=4" width="300" height="300" />
   
@@ -124,6 +158,9 @@ wget -P pretrain/ https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/mai
 - download model at [MoeSS-SUBModel](https://huggingface.co/NaruseMioShirakana/MoeSS-SUBModel/tree/main)
   - Place it under the `pretrain` directory
 
+##### **8. If mrhubert/wavlablm as the encoder**
+- ensure s3prl is installed. No other model should be downloaded
+  
 #### **List of Encoders**
 - "vec768l12"
 - "vec256l9"
@@ -138,6 +175,8 @@ wget -P pretrain/ https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/mai
 - "dphubert"
 - "whisper-ppg-large"
 - "wavlmbase+"
+- "mrhubert"
+- "wavlablm"
 
 #### **Optional(Strongly recommend)**
 
@@ -261,6 +300,8 @@ cnhubertlarge
 dphubert
 whisper-ppg-large
 wavlmbase+
+mrhubert
+wavlablm
 ```
 
 If the speech_encoder argument is omitted, the default value is `vec768l12`
@@ -505,6 +546,8 @@ Note: For Hubert Onnx models, please use the models provided by MoeSS. Currently
 
 | URL | Designation | Title | Implementation Source |
 | --- | ----------- | ----- | --------------------- |
+|[2310.02720](https://arxiv.org/abs/2310.02720) | Multi-resolution HuBERT | Multi-resolution HuBERT: Multi-resolution Speech Self-Supervised Learning with Masked Unit Prediction | [s3prl's upstream: multires_hubert_base](https://s3prl.github.io/s3prl/tutorial/upstream_collection.html#multiresolution-hubert-mr-hubert) |
+|[2309.15317](https://arxiv.org/abs/2309.15317) | WavLabLM | Joint Prediction and Denoising for Large-scale Multilingual Self-supervised Learning | [s3prl's upstream: wavlablm_ms_40k](https://s3prl.github.io/s3prl/tutorial/upstream_collection.html#wavlablm) |
 |[2106.06103](https://arxiv.org/abs/2106.06103) | VITS (Synthesizer)| Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech | [jaywalnut310/vits](https://github.com/jaywalnut310/vits) |
 |[2111.02392](https://arxiv.org/abs/2111.02392) | SoftVC (Speech Encoder)| A Comparison of Discrete and Soft Speech Units for Improved Voice Conversion | [bshall/hubert](https://github.com/bshall/hubert) |
 |[2204.09224](https://arxiv.org/abs/2204.09224) | ContentVec (Speech Encoder)| ContentVec: An Improved Self-Supervised Speech Representation by Disentangling Speakers | [auspicious3000/contentvec](https://github.com/auspicious3000/contentvec) |
